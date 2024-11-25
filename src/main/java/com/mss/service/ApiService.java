@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -35,8 +36,19 @@ public class ApiService {
             for (Inbox inbox : contents) {
                 System.out.println(inbox.toString());
                 inbox.setStatus("N");
+                // Set timestamps
+                LocalDateTime now = LocalDateTime.now();
+                inbox.setCreatedAt(now);
+                inbox.setUpdatedAt(now);
+
+                // sms parse
+                String[] data = inbox.getSms().split(" ");
+                inbox.setKeyword(data[0]);
+                inbox.setGameName(data[1]);
+
                 this.inboxRepository.save(inbox);
             }
         }
     }
+
 }
