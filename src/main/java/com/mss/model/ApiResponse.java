@@ -1,6 +1,5 @@
 package com.mss.model;
 
-import com.mss.entity.Content;
 import com.mss.entity.Inbox;
 import lombok.Getter;
 import lombok.Setter;

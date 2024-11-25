@@ -1,6 +1,6 @@
 package com.mss.service;
 
-import com.mss.repository.ContentRepository;
+import com.mss.repository.InboxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 public class InboxService {
 
     @Autowired
-    private ContentRepository contentRepository;
+    private InboxRepository inboxRepository;
 
     @Autowired
     private RestTemplate restTemplate;

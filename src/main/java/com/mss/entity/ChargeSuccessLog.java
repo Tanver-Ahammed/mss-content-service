@@ -19,6 +19,20 @@ public class ChargeSuccessLog {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
 
+    private String transaction;
 
+    private String operator;
+
+    private String shortCode;
+
+    private String msisdn;
+
+    private String keyword;
+
+    private String gameName;
+
+    private String createdAt;
+
+    private String updatedAt;
 
 }
