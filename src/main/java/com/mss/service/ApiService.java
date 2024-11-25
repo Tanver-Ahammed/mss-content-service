@@ -34,8 +34,9 @@ public class ApiService {
             // Save the fetched contents into the database
             for (Inbox inbox : contents) {
                 System.out.println(inbox.toString());
+                inbox.setStatus("N");
+                this.inboxRepository.save(inbox);
             }
-            inboxRepository.saveAll(contents);
         }
     }
 }

@@ -18,6 +18,7 @@ public class Keyword {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, unique = true)
     private String keyword;
 
     private String createdAt;

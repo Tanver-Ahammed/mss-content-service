@@ -1,10 +1,9 @@
 package com.mss.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,9 +17,7 @@ public class Inbox {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private UUID transactionId;
-
-    private String transactor;
+    private String transactionId;
 
     private String operator;
 
@@ -36,8 +33,8 @@ public class Inbox {
 
     private String status;
 
-    private String createdAt;
+    private LocalDateTime createdAt;
 
-    private String updatedAt;
+    private LocalDateTime updatedAt;
 
 }

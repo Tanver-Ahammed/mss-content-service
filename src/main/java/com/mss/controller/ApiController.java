@@ -18,7 +18,12 @@ public class ApiController {
     // Endpoint to trigger the fetch and save process
     @GetMapping("/api/fetch-and-save")
     public String fetchAndSaveContents() {
+        long startTime = System.currentTimeMillis();
         apiService.fetchAndSaveContents();
+        long endTime = System.currentTimeMillis();
+        System.out.println("Time taken: " + (endTime - startTime) + "ms");
         return "Contents have been fetched and saved to the database!";
     }
 }
+
+//Time taken: 1806ms
