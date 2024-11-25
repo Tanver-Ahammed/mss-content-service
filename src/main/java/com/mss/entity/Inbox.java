@@ -2,33 +2,43 @@ package com.mss.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
-@Table(name = "index")
+@Table(name = "inbox")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Content {
+@ToString
+public class Inbox {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private long id;
 
     private UUID transactionId;
 
+    private String transactor;
+
     private String operator;
+
+    private String keyword;
 
     private String shortCode;
 
     private String msisdn;
 
     private String sms;
+
+    private String gameName;
+
+    private String status;
+
+    private String createdAt;
+
+    private String updatedAt;
 
 }
