@@ -1,6 +1,7 @@
 package com.mss.model;
 
 import com.mss.entity.Content;
+import com.mss.entity.Inbox;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,5 +14,5 @@ public class ApiResponse {
     private int statusCode;
     private String message;
     private int contentCount;
-    private List<Content> contents;
+    private List<Inbox> contents;
 }
