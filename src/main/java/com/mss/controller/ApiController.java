@@ -3,9 +3,11 @@ package com.mss.controller;
 import com.mss.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/v1")
 public class ApiController {
 
     private final ApiService apiService;
@@ -16,7 +18,7 @@ public class ApiController {
     }
 
     // Endpoint to trigger the fetch and save process
-    @GetMapping("/api/fetch-and-save")
+    @GetMapping("/fetch-and-save/content")
     public String fetchAndSaveContents() {
         long startTime = System.currentTimeMillis();
         apiService.fetchAndSaveContents();

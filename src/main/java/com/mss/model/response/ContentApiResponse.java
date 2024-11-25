@@ -1,4 +1,4 @@
-package com.mss.model;
+package com.mss.model.response;
 
 import com.mss.entity.Inbox;
 import lombok.Getter;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ApiResponse {
+public class ContentApiResponse {
 
     private int statusCode;
     private String message;

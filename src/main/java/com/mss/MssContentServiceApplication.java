@@ -4,6 +4,7 @@ import com.mss.entity.ChargeConfig;
 import com.mss.entity.Keyword;
 import com.mss.repository.ChargeConfigRepository;
 import com.mss.repository.KeywordRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +30,11 @@ public class MssContentServiceApplication implements CommandLineRunner {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
     @Override

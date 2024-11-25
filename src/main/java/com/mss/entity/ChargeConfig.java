@@ -23,6 +23,7 @@ public class ChargeConfig {
     @Column(nullable = false, unique = true)
     private String operator;
 
+    @Column(nullable = false, unique = true)
     private String chargeCode;
 
     private String createdAt;
