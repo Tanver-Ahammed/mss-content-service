@@ -25,4 +25,10 @@ public class Keyword {
 
     private String updatedAt;
 
+    public Keyword(String keyword, String createdAt, String updatedAt) {
+        this.keyword = keyword;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
 }

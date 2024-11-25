@@ -1,5 +1,6 @@
 package com.mss.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -19,6 +20,7 @@ public class ChargeConfig {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, unique = true)
     private String operator;
 
     private String chargeCode;
@@ -27,4 +29,10 @@ public class ChargeConfig {
 
     private String updatedAt;
 
+    public ChargeConfig(String operator, String chargeCode, String createdAt, String updatedAt) {
+        this.operator = operator;
+        this.chargeCode = chargeCode;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }
