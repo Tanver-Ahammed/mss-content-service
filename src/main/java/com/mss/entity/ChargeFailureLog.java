@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -19,7 +21,7 @@ public class ChargeFailureLog {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private long id;
 
-    private String transaction;
+    private String transactionId;
 
     private String operator;
 
@@ -31,8 +33,14 @@ public class ChargeFailureLog {
 
     private String gameName;
 
-    private String createdAt;
+    private String statusCode;
 
-    private String updatedAt;
+    private String message;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    private long smsId;
 
 }
