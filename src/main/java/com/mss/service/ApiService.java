@@ -9,6 +9,7 @@ import com.mss.model.response.ChargingResponse;
 import com.mss.model.response.ContentApiResponse;
 import com.mss.model.response.UnlockCodeResponse;
 import com.mss.repository.InboxRepository;
+import com.mss.repository.KeywordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -30,11 +31,13 @@ public class ApiService {
     private final RestTemplate restTemplate;
     private final InboxRepository inboxRepository;
     private final ObjectMapper objectMapper;
+    private final KeywordRepository keywordRepository;
 
     @Autowired
-    public ApiService(RestTemplate restTemplate, InboxRepository inboxRepository, ObjectMapper objectMapper) {
+    public ApiService(RestTemplate restTemplate, InboxRepository inboxRepository, ObjectMapper objectMapper, KeywordRepository keywordRepository) {
         this.restTemplate = restTemplate;
         this.inboxRepository = inboxRepository;
+        this.keywordRepository = keywordRepository;
         this.objectMapper = objectMapper;
     }
 
@@ -48,7 +51,6 @@ public class ApiService {
             List<Inbox> contents = apiResponse.getContents();
             int count = 0;
 
-            // Create a semaphore to limit concurrent threads
             Semaphore semaphore = new Semaphore(8); // Limit to 8 concurrent tasks
 
             try (var executor = Executors.newThreadPerTaskExecutor(Thread.ofVirtual().factory())) {
@@ -57,33 +59,36 @@ public class ApiService {
 
                     executor.execute(() -> {
                         try {
-                            // Acquire a permit before processing
                             semaphore.acquire();
 
                             System.out.println(inbox.toString());
                             inbox.setStatus("N");
 
-                            // Set timestamps
                             LocalDateTime now = LocalDateTime.now();
                             inbox.setCreatedAt(now);
                             inbox.setUpdatedAt(now);
 
-                            // SMS parse
                             String[] data = inbox.getSms().split(" ");
                             inbox.setKeyword(data[0]);
                             inbox.setGameName(data[1]);
 
-                            // Save to database
-                            this.inboxRepository.save(inbox);
+                            Inbox savedInbox = this.inboxRepository.save(inbox);
 
-                            // Unlock code retrieval
-                            ApiResponseWrapper apiResponseWrapper = unlockCodeRetrieval(inbox);
-                            System.err.println(apiResponseWrapper.getStatusCode() +
-                                    "\n...................................................");
+                            boolean isExistKeyword = this.keywordRepository.existsByKeyword(savedInbox.getKeyword());
+                            if (isExistKeyword) {
+                                ApiResponseWrapper apiResponseWrapper = unlockCodeRetrieval(inbox);
+                                System.err.println(apiResponseWrapper.getStatusCode() +
+                                        "\n...................................................");
+                                if (apiResponseWrapper.getStatusCode().equals("200")) {
+                                    UnlockCodeResponse unlockCodeResponse = (UnlockCodeResponse) apiResponseWrapper.getResponse();
+                                    System.out.println(unlockCodeResponse.toString());
+                                }
+                            }
+
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         } finally {
-                            // Release the permit after processing
                             semaphore.release();
                         }
                     });
