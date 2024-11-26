@@ -55,10 +55,12 @@ public class MssContentServiceApplication implements CommandLineRunner {
         Keyword amd = new Keyword("AMD", "2024-11-20 00:01:00.000", "2024-11-20 00:01:00.000");
         Keyword ibm = new Keyword("IBM", "2024-11-20 00:01:00.000", "2024-11-20 00:01:00.000");
 
-        try {
-            keywordRepository.saveAll(Arrays.asList(apple, google, microsoft, facebook, netflix, amazon, nvidia, intel, amd, ibm));
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+        for (Keyword keyword : Arrays.asList(apple, google, microsoft, facebook, netflix, amazon, nvidia, intel, amd, ibm)) {
+            try {
+                keywordRepository.save(keyword);
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
     }
 
@@ -69,11 +71,12 @@ public class MssContentServiceApplication implements CommandLineRunner {
         ChargeConfig teletalk = new ChargeConfig("TELETALK", "TL512343", "2024-11-20 00:01:00.000", "2024-11-20 00:01:00.000");
         ChargeConfig airtel = new ChargeConfig("AIRTEL", "AL621124", "2024-11-20 00:01:00.000", "2024-11-20 00:01:00.000");
 
-        // Save all ChargeConfig entities into the database
-        try {
-            chargeConfigRepository.saveAll(Arrays.asList(banglalink, grameenphone, robi, teletalk, airtel));
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+        for (ChargeConfig chargeConfig : Arrays.asList(banglalink, grameenphone, robi, teletalk, airtel)) {
+            try {
+                chargeConfigRepository.save(chargeConfig);
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
         }
     }
 
