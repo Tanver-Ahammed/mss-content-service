@@ -19,11 +19,16 @@ public class ApiController {
 
     // Endpoint to trigger the fetch and save process
     @GetMapping("/fetch-and-save/content")
-    public String fetchAndSaveContents() {
+    public String fetchAndSaveContents() throws InterruptedException {
         long startTime = System.currentTimeMillis();
-        apiService.fetchAndSaveContents();
-        long endTime = System.currentTimeMillis();
-        System.out.println("Time taken: " + (endTime - startTime) + "ms");
+        for (int i = 0; i < 50; i++) {
+            Thread.sleep(2000);
+            try {
+                apiService.fetchAndSaveContents();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         return "Contents have been fetched and saved to the database!";
     }
 }
