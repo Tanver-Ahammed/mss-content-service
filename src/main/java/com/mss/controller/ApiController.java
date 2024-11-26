@@ -29,6 +29,8 @@ public class ApiController {
                 e.printStackTrace();
             }
         }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Time taken: " + (endTime - startTime) + "ms");
         return "Contents have been fetched and saved to the database!";
     }
 }
