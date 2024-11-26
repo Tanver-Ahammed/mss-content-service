@@ -1,0 +1,40 @@
+services:
+  # PostgreSQL Database Service
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: assessment
+    ports:
+      - "5432:5432"  # Exposes PostgreSQL port
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Maps volume for data persistence
+    networks:
+      - app-network
+
+  # Spring Boot Application Service
+  apps:
+    build:
+      context: .  # Uses the Dockerfile in the current directory
+      dockerfile: Dockerfile
+    container_name: content-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/assessment
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 12345
+    ports:
+      - "8080:8080"  # Exposes the app port
+    depends_on:
+      - postgres  # Ensures PostgreSQL starts before the app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
