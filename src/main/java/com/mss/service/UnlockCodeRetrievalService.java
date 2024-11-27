@@ -38,7 +38,7 @@ public class UnlockCodeRetrievalService {
 
         ResponseEntity<UnlockCodeResponse> response;
         try {
-            String SERVICE_Retrieval_URL = "http://demo.webmanza.com/a55dbz923ace647v/api/v1.0/services/unlockCode";
+            String SERVICE_Retrieval_URL = "https://demo.webmanza.com/a55dbz923ace647v/api/v1.0/services/unlockCode";
             response = restTemplate
                     .exchange(SERVICE_Retrieval_URL, HttpMethod.POST, entity, UnlockCodeResponse.class);
 

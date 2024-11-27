@@ -49,7 +49,7 @@ public class ChargeService {
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 
         try {
-            String SERVICE_Retrieval_URL = "http://demo.webmanza.com/a55dbz923ace647v/api/v1.0/services/charge";
+            String SERVICE_Retrieval_URL = "https://demo.webmanza.com/a55dbz923ace647v/api/v1.0/services/charge";
             ResponseEntity<ChargingResponse> response = restTemplate
                     .exchange(SERVICE_Retrieval_URL, HttpMethod.POST, entity, ChargingResponse.class);
 
